@@ -8,12 +8,21 @@ sys.setrecursionlimit(10 ** 9)
 
 import selectinwindow
 
-# Initialize the  drag object
+# Initialize the drag object
 wName = "select region"
-imageWidth = 320
-imageHeight = 240
-image = np.ones([imageHeight, imageWidth, 3], dtype=np.uint8)  # OR read an image using imread()
-image *= 255
+
+# Read an actual image (replace with your image path)
+image_path = "test.jpg"
+image = cv2.imread(image_path)
+
+if image is None:
+    print(f"Error: Could not read image at {image_path}")
+    # Create a white background if image not found
+    imageWidth = 320
+    imageHeight = 240
+    image = np.ones([imageHeight, imageWidth, 3], dtype=np.uint8) * 255
+else:
+    imageHeight, imageWidth = image.shape[:2]
 
 # Define the drag object
 rectI = selectinwindow.DragRectangle(image, wName, imageWidth, imageHeight)
